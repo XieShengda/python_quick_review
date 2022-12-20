@@ -1,0 +1,15 @@
+import mysql.connector
+
+conn = mysql.connector.connect(user='root', password='root',database='test')
+cursor = conn.cursor()
+# cursor.execute('create table user_test (`id` int(11) not null auto_increment, `user_name` varchar(64) not null, primary key(`id`))')
+cursor.execute('insert into user_test (user_name) values(%s)', ('sender',))
+print(cursor.rowcount)
+conn.commit()
+cursor.close()
+cursor = conn.cursor()
+cursor.execute('select * from user_test where id = %s', (1,))
+values = cursor.fetchall()
+print(values)
+cursor.close()
+conn.close()
